@@ -1,0 +1,2128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aadya's Kitchen | Premium Cloud Kitchen</title>
+    <link rel="icon" href="images/logo.png" type="image/png">
+    <meta name="description"
+        content="Order premium quality food from Aadya's Kitchen. Fast delivery, fresh ingredients, and unforgettable taste.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- Pre-load Dark Theme Script to avoid FOUC -->
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+
+    <style>
+        /* ================= CSS VARIABLES ================= */
+        :root {
+            --primary: #ff4757;
+            --primary-hover: #ff2a3e;
+            --primary-rgb: 255, 71, 87;
+            --bg-color: #f8f9fa;
+            --surface-color: #ffffff;
+            --text-color: #2f3542;
+            --text-light: #747d8c;
+            --border-color: #e4e8ec;
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --surface-color: #1e1e1e;
+            --text-color: #f1f2f6;
+            --text-light: #a4b0be;
+            --border-color: #2d3436;
+            --glass-bg: rgba(30, 30, 30, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.6);
+            --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.8);
+        }
+
+        /* ================= GLOBAL TYPOGRAPHY & RESET ================= */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-color);
+        }
+
+        p {
+            color: var(--text-light);
+        }
+
+        .text-primary {
+            color: var(--primary) !important;
+        }
+
+        .bg-primary {
+            background-color: var(--primary) !important;
+        }
+
+        .bg-surface {
+            background-color: var(--surface-color);
+        }
+
+        .text-muted {
+            color: var(--text-light) !important;
+        }
+
+        section {
+            padding: 90px 0;
+        }
+
+        .section-bg-alt {
+            background-color: var(--surface-color);
+        }
+
+        /* ================= COMPONENTS & BUTTONS ================= */
+        .btn {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            border-color: var(--primary-hover);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(var(--primary-rgb), 0.3);
+        }
+
+        .btn-outline-primary {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* ================= GLASSMORPHISM & UTILS ================= */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+        }
+
+        /* ================= NAVBAR ================= */
+        .navbar {
+            background-color: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            padding: 15px 0;
+        }
+
+        .navbar.scrolled {
+            box-shadow: var(--shadow-md);
+            padding: 10px 0;
+        }
+
+        .navbar-brand {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--text-color) !important;
+        }
+
+        .nav-link {
+            color: var(--text-color) !important;
+            font-weight: 500;
+            margin: 0 10px;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--primary);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 80%;
+        }
+
+        .theme-toggle-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background: var(--surface-color);
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .theme-toggle-btn:hover {
+            background: var(--border-color);
+        }
+
+        /* ================= HERO SECTION ================= */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 180px;
+            background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.08) 0%, rgba(255, 255, 255, 0) 100%);
+        }
+
+        [data-theme="dark"] .hero-section {
+            background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.15) 0%, rgba(18, 18, 18, 0) 100%);
+        }
+
+        .hero-img-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        .floating-emoji {
+            position: absolute;
+            font-size: 2.5rem;
+            z-index: 10;
+            pointer-events: none;
+            animation: emojiFloat 4s ease-in-out infinite;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
+        }
+
+        .emoji-1 {
+            top: 10%;
+            left: -5%;
+            animation-delay: 0s;
+        }
+
+        .emoji-2 {
+            top: 65%;
+            left: -10%;
+            animation-delay: 1s;
+        }
+
+        .emoji-3 {
+            top: 15%;
+            right: -5%;
+            animation-delay: 2s;
+        }
+
+        .emoji-4 {
+            top: 80%;
+            right: 5%;
+            animation-delay: 3s;
+        }
+
+        @keyframes emojiFloat {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+        }
+
+        .hero-img {
+            border-radius: 50%;
+            width: 100%;
+            max-width: 550px;
+            box-shadow: var(--shadow-lg);
+            animation: float 6s ease-in-out infinite;
+            border: 8px solid var(--surface-color);
+            object-fit: cover;
+            aspect-ratio: 1;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* ================= FOOD ANIMATION ================= */
+        .food-anim-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 1;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .typing-cursor {
+            font-weight: bold;
+            color: var(--primary);
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .ingredient-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            z-index: 2;
+            animation: dropIngredient 10s infinite cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .ingredient-img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .ingredient-name {
+            background: var(--surface-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            white-space: nowrap;
+        }
+
+        .ing-1 {
+            --startX: -150px;
+            --startY: -200px;
+            animation-delay: 0s;
+        }
+
+        .ing-2 {
+            --startX: 0px;
+            --startY: -250px;
+            animation-delay: 0.5s;
+        }
+
+        .ing-3 {
+            --startX: 150px;
+            --startY: -180px;
+            animation-delay: 1s;
+        }
+
+        .ing-4 {
+            --startX: -180px;
+            --startY: -50px;
+            animation-delay: 0.3s;
+        }
+
+        .ing-5 {
+            --startX: 180px;
+            --startY: -20px;
+            animation-delay: 0.8s;
+        }
+
+        .ing-6 {
+            --startX: 0px;
+            --startY: -80px;
+            animation-delay: 0.4s;
+        }
+
+        .ing-7 {
+            --startX: 120px;
+            --startY: -280px;
+            animation-delay: 0.2s;
+        }
+
+        @keyframes dropIngredient {
+            0% {
+                transform: translate(calc(-50% + var(--startX)), calc(-50% + var(--startY) - 50px)) scale(0.8);
+                opacity: 0;
+            }
+
+            8% {
+                transform: translate(calc(-50% + var(--startX)), calc(-50% + var(--startY))) scale(1);
+                opacity: 1;
+            }
+
+            22% {
+                transform: translate(calc(-50% + var(--startX)), calc(-50% + var(--startY))) scale(1);
+                opacity: 1;
+            }
+
+            35% {
+                transform: translate(-50%, -50%) scale(0.2) rotate(180deg);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 0;
+            }
+        }
+
+        .cooking-bowl {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 140px;
+            height: 140px;
+            margin-top: -70px;
+            margin-left: -70px;
+            background: linear-gradient(135deg, #444, #111);
+            border-radius: 50%;
+            z-index: 1;
+            opacity: 0;
+            box-shadow: inset 0 10px 20px rgba(255, 255, 255, 0.3), 0 20px 40px rgba(0, 0, 0, 0.6);
+            border: 4px solid #555;
+            animation: cookBowl 10s infinite cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .cooking-bowl::after {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            right: 10%;
+            bottom: 10%;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ff9f43 0%, #ff4757 70%, #2f3542 100%);
+            animation: bowlGlow 10s infinite;
+        }
+
+        @keyframes cookBowl {
+
+            0%,
+            25% {
+                transform: scale(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            30% {
+                transform: scale(1) rotate(180deg);
+                opacity: 1;
+            }
+
+            35%,
+            45% {
+                transform: scale(1.2) rotate(1440deg);
+                opacity: 1;
+                filter: blur(2px);
+            }
+
+            50% {
+                transform: scale(0) rotate(2000deg);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+
+        @keyframes bowlGlow {
+
+            0%,
+            30% {
+                opacity: 0;
+            }
+
+            35%,
+            45% {
+                opacity: 0.8;
+            }
+
+            50%,
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .final-dish {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            z-index: 3;
+            border: 8px solid var(--surface-color);
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            animation: revealDish 10s infinite cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        @keyframes revealDish {
+
+            0%,
+            48% {
+                transform: scale(0.2) rotate(-90deg);
+                opacity: 0;
+                filter: blur(20px);
+            }
+
+            53% {
+                transform: scale(1.05) rotate(0deg);
+                opacity: 1;
+                filter: blur(0px);
+            }
+
+            58% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            90% {
+                transform: scale(1);
+                opacity: 1;
+                filter: blur(0px);
+            }
+
+            95%,
+            100% {
+                transform: scale(0.8);
+                opacity: 0;
+                filter: blur(20px);
+            }
+        }
+
+        /* Looping switch */
+        .dish-anim-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 1;
+            margin: 0 auto;
+        }
+
+        .dish-anim-container {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            animation: dishLoop 20s infinite;
+        }
+
+        .dish-1 {
+            animation-delay: 0s;
+        }
+
+        .dish-2 {
+            animation-delay: 10s;
+        }
+
+        @keyframes dishLoop {
+
+            0%,
+            45% {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            50%,
+            100% {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        /* ================= MENU CARDS ================= */
+        .card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .menu-img {
+            height: 240px;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .card:hover .menu-img {
+            transform: scale(1.08);
+        }
+
+        .price {
+            color: var(--primary);
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* ================= FEATURES & WHY US ================= */
+        .feature-icon-box {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            background: rgba(var(--primary-rgb), 0.1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 20px;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover .feature-icon-box {
+            background: var(--primary);
+            color: white;
+            transform: rotate(10deg);
+        }
+
+        /* ================= FORMS & INPUTS ================= */
+        .form-control {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 12px 20px;
+            border-radius: 12px;
+        }
+
+        .form-control:focus {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(var(--primary-rgb), 0.15);
+        }
+
+        /* ================= BACK TO TOP ================= */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: auto;
+            height: auto;
+            padding: 12px 24px;
+            border-radius: 50px;
+            background: var(--primary);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1020;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        @keyframes bounceBack {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        #back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            animation: bounceBack 2s infinite;
+        }
+
+        #back-to-top:hover {
+            background: var(--primary-hover);
+        }
+
+        /* ================= ANIMATIONS ================= */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ================= LOADER ================= */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-color);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s ease;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid var(--border-color);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ================= FOOTER ================= */
+        footer {
+            background-color: var(--surface-color);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-color);
+            color: var(--text-color);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* ================= CUSTOM TESTIMONIAL SLIDER ================= */
+        .testimonial-slider-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            height: 400px;
+            overflow: hidden;
+            padding: 0 60px; /* Leave space for arrows */
+        }
+
+        .testimonial-slider {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .testimonial-slide {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            opacity: 0;
+            visibility: hidden;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease, visibility 0.6s ease;
+            z-index: 1;
+        }
+
+        .testimonial-slide.active {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+            visibility: visible;
+            z-index: 3;
+        }
+
+        /* Hover popup effect for center slide */
+        .testimonial-slide.active:hover .testimonial-card {
+            transform: scale(1.03) translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(var(--primary-rgb), 0.3);
+        }
+
+        .testimonial-slide.prev {
+            transform: translate(-140%, -50%) scale(0.8);
+            opacity: 0.4;
+            visibility: visible;
+            z-index: 2;
+            cursor: pointer;
+        }
+
+        .testimonial-slide.next {
+            transform: translate(40%, -50%) scale(0.8);
+            opacity: 0.4;
+            visibility: visible;
+            z-index: 2;
+            cursor: pointer;
+        }
+
+        .testimonial-card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease, background-color 0.3s ease;
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-name {
+            color: var(--primary);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Arrows styling */
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .slider-arrow:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 5px 15px rgba(var(--primary-rgb), 0.3);
+        }
+
+        .prev-arrow {
+            left: 20px;
+        }
+
+        .next-arrow {
+            right: 20px;
+        }
+
+        .testimonial-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .testimonial-dots .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--border-color);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .testimonial-dots .dot.active {
+            background-color: var(--primary);
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 992px) {
+            .testimonial-slide {
+                width: 70%;
+            }
+            .testimonial-slide.prev {
+                transform: translate(-120%, -50%) scale(0.8);
+            }
+            .testimonial-slide.next {
+                transform: translate(20%, -50%) scale(0.8);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .testimonial-slider-container {
+                height: 480px;
+                padding: 0 45px;
+            }
+            .testimonial-slide {
+                width: 85%;
+            }
+            .testimonial-slide.prev {
+                transform: translate(-108%, -50%) scale(0.8);
+                opacity: 0.15;
+            }
+            .testimonial-slide.next {
+                transform: translate(8%, -50%) scale(0.8);
+                opacity: 0.15;
+            }
+            .slider-arrow {
+                width: 40px;
+                height: 40px;
+            }
+            .prev-arrow {
+                left: 5px;
+            }
+            .next-arrow {
+                right: 5px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .testimonial-slider-container {
+                height: 520px;
+                padding: 0 10px;
+            }
+            .testimonial-slide {
+                width: 90%;
+            }
+            .testimonial-slide.prev {
+                opacity: 0;
+                visibility: hidden;
+            }
+            .testimonial-slide.next {
+                opacity: 0;
+                visibility: hidden;
+            }
+            .slider-arrow {
+                background: rgba(var(--primary-rgb), 0.1);
+                border: none;
+                color: var(--primary);
+            }
+            .slider-arrow:hover {
+                background: var(--primary);
+                color: white;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= LOADER ================= -->
+    <div id="loader">
+        <div class="spinner mb-3"></div>
+        <h4 class="fw-bold" style="font-family: 'Outfit', sans-serif;">Cooking up something good...</h4>
+    </div>
+
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                <img src="images/logo.png" alt="Aadya's Kitchen Logo" width="45" height="45"
+                    class="rounded-circle shadow-sm" style="object-fit: cover;">
+                <span>Aadya's Kitchen</span>
+            </a>
+
+            <div class="d-flex align-items-center order-lg-3 gap-2">
+                <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Dark Mode">
+                    <i class="bi bi-moon-fill"></i>
+                </button>
+
+                <a href="#contact" class="btn btn-primary rounded-pill px-4 ms-2 d-none d-md-block">Contact Us</a>
+                <button class="navbar-toggler border-0 shadow-none ms-2" type="button" data-bs-toggle="collapse"
+                    data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <i class="bi bi-list fs-1 text-color"></i>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse order-lg-2" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#menu">Menu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#location">Location</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ================= HERO SECTION ================= -->
+    <section id="home" class="hero-section pt-5 mt-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 order-2 order-lg-1 mt-5 mt-lg-0 fade-up">
+                    <h1 class="display-3 fw-bolder mb-4" style="line-height: 1.1;">
+                        Every bite brings comfort, <br>
+                        <span class="text-primary">taste</span>, and happiness.
+                    </h1>
+                    <p class="lead mb-4 pe-lg-5 fs-4">
+                        We are experts in <span id="typing-text" class="fw-bold"
+                            style="color: var(--primary); min-height: 1.5em; display: inline-block;"></span><span
+                            class="typing-cursor">|</span>
+                    </p>
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="#menu"
+                            class="btn btn-primary btn-lg rounded-pill px-4 py-3 shadow-sm d-flex align-items-center gap-2">
+                            <i class="bi bi-emoji-smile"></i> View Our Menu
+                        </a>
+                    </div>
+                    <div
+                        class="mt-5 d-flex align-items-center gap-3 bg-surface d-inline-flex p-3 rounded-pill shadow-sm border border-secondary border-opacity-10 glass-card">
+                        <div class="text-sm">
+                            <div class="fw-bold d-flex align-items-center gap-1 fs-5">
+                                <i class="bi bi-star-fill text-warning"></i> 4.7/5
+                            </div>
+                            <span class="small" style="color: var(--text-light);">from 600+ reviews</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-1 order-lg-2 text-center fade-up">
+                    <div class="hero-img-wrapper d-inline-block position-relative w-100">
+                        <div class="floating-emoji emoji-1">😋</div>
+                        <div class="floating-emoji emoji-2">🥗</div>
+                        <div class="floating-emoji emoji-3">🥘</div>
+                        <div class="floating-emoji emoji-4">✨</div>
+                        <div class="dish-anim-wrapper">
+                            <!-- Biryani Animation -->
+                            <div class="dish-anim-container dish-1">
+                                <div class="food-anim-container">
+                                    <!-- Falling Ingredients -->
+                                    <div class="ingredient-wrapper ing-1">
+                                        <img src="images/basmati_rice.jpg" alt="Rice" class="ingredient-img">
+                                        <span class="ingredient-name">Basmati Rice</span>
+                                    </div>
+                                    <div class="ingredient-wrapper ing-2">
+                                        <img src="images/spices.jpg" alt="Spices" class="ingredient-img">
+                                        <span class="ingredient-name">Aromatic Spices</span>
+                                    </div>
+                                    <div class="ingredient-wrapper ing-3">
+                                        <img src="images/pudina.png" alt="Pudina" class="ingredient-img">
+                                        <span class="ingredient-name">Pudina</span>
+                                    </div>
+                                    <div class="ingredient-wrapper ing-4">
+                                        <img src="images/veggies.jpg" alt="Veggies" class="ingredient-img">
+                                        <span class="ingredient-name">Organic Veggies</span>
+                                    </div>
+                                    <div class="ingredient-wrapper ing-5">
+                                        <img src="images/meat.jpg" alt="Meat" class="ingredient-img">
+                                        <span class="ingredient-name">Tender Meat</span>
+                                    </div>
+                                    <div class="ingredient-wrapper ing-6">
+                                        <img src="images/lemon.jpg" alt="Lemon" class="ingredient-img">
+                                        <span class="ingredient-name">Fresh Lemon</span>
+                                    </div>
+
+                                    <!-- Cooking Bowl -->
+                                    <div class="cooking-bowl"></div>
+
+                                    <!-- Final Biryani -->
+                                    <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80"
+                                        alt="Biryani Bowl" class="final-dish">
+                                </div>
+                            </div>
+
+                            <!-- Pav Bhaji Animation -->
+                            <div class="dish-anim-container dish-2">
+                                <div class="food-anim-container">
+                                    <!-- Falling Ingredients -->
+                                    <div class="ingredient-wrapper ing-1">
+                                        <img src="images/potatoes.png" alt="Potatoes" class="ingredient-img">
+                                        <span class="ingredient-name">Boiled Potatoes</span>
+                                    </div>
+                                    <div class="ingredient-wrapper ing-2">
+                                        <img src="images/onions.jpg" alt="Onions" class="ingredient-img">
+                                        <span class="ingredient-name">Red Onions</span>
+                                    </div>
+                                    <div class="ingredient-wrapper ing-3">
+                                        <img src="images/butter.png" alt="Butter" class="ingredient-img">
+                                        <span class="ingredient-name">Amul Butter</span>
+                                    </div>
+                                    <div class="ingredient-wrapper ing-4">
+                                        <img src="images/tomatoes.jpg" alt="Tomatoes" class="ingredient-img">
+                                        <span class="ingredient-name">Fresh Tomatoes</span>
+                                    </div>
+                                    <div class="ingredient-wrapper ing-5">
+                                        <img src="images/peas.jpg" alt="Peas" class="ingredient-img">
+                                        <span class="ingredient-name">Green Peas</span>
+                                    </div>
+                                    <div class="ingredient-wrapper ing-6">
+                                        <img src="images/buttered_pav.png" alt="Pav" class="ingredient-img">
+                                        <span class="ingredient-name">Buttered Pav</span>
+                                    </div>
+                                    <div class="ingredient-wrapper ing-7">
+                                        <img src="images/cauliflower.jpg" alt="Cauliflower" class="ingredient-img">
+                                        <span class="ingredient-name">Cauliflower</span>
+                                    </div>
+
+                                    <!-- Cooking Bowl -->
+                                    <div class="cooking-bowl"></div>
+
+                                    <!-- Final Pav Bhaji -->
+                                    <img src="images/pavbhaji.png" alt="Pav Bhaji" class="final-dish">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Floating Badges -->
+
+                        <div class="position-absolute bottom-0 end-0 translate-middle-y bg-surface p-3 rounded-4 shadow-lg glass-card d-none d-md-flex align-items-center gap-3"
+                            style="animation: float 5s ease-in-out infinite alternate-reverse; margin-bottom: 50px; z-index: 5;">
+                            <div class="bg-warning bg-opacity-10 text-warning p-2 rounded-circle">
+                                <i class="bi bi-emoji-smile-fill fs-3"></i>
+                            </div>
+                            <div class="text-start">
+                                <h6 class="mb-0 fw-bold">Top Rated</h6>
+                                <small class="text-muted">Biryani & Pav Bhaji</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= WHY CHOOSE US ================= -->
+    <section id="how-it-works" class="section-bg-alt">
+        <div class="container">
+            <div class="text-center mb-5 fade-up">
+                <span class="text-primary fw-bold text-uppercase tracking-wide">Why Choose Us</span>
+                <h2 class="display-6 fw-bold mt-2">What Makes Aadya's Kitchen Special?</h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3 text-center fade-up feature-card">
+                    <div class="feature-icon-box">
+                        <i class="bi bi-egg-fried"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Fresh Ingredients</h5>
+                    <p>We source local, organic ingredients daily to ensure maximum flavor and nutrition.</p>
+                </div>
+                <div class="col-md-6 col-lg-3 text-center fade-up feature-card" style="transition-delay: 0.1s">
+                    <div class="feature-icon-box">
+                        <i class="bi bi-fire"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Master Chefs</h5>
+                    <p>Our kitchen is run by award-winning chefs who bring passion to every single dish.</p>
+                </div>
+                <div class="col-md-6 col-lg-3 text-center fade-up feature-card" style="transition-delay: 0.2s">
+                    <div class="feature-icon-box">
+                        <i class="bi bi-house-heart"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Home Style Cooking</h5>
+                    <p>Authentic recipes prepared just like home for real taste.</p>
+                </div>
+                <div class="col-md-6 col-lg-3 text-center fade-up feature-card" style="transition-delay: 0.3s">
+                    <div class="feature-icon-box">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Hygienic Preparation</h5>
+                    <p>Clean kitchen practices ensuring safe and healthy food.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= MENU SECTION ================= -->
+    <section id="menu">
+        <div class="container">
+            <div class="text-center mb-5 fade-up">
+                <span class="text-primary fw-bold text-uppercase tracking-wide">Our Menu</span>
+                <h2 class="display-6 fw-bold mt-2">Explore Top Dishes</h2>
+                
+                <!-- Filter Buttons -->
+                <div class="d-flex justify-content-center flex-wrap gap-3 mt-4" id="menu-filters">
+                    <button class="btn btn-outline-primary rounded-pill px-4 fw-bold filter-btn" data-filter="nonveg">Nonveg Dishes</button>
+                    <button class="btn btn-outline-primary rounded-pill px-4 fw-bold filter-btn" data-filter="veg">Veg Dishes</button>
+                    <button class="btn btn-primary rounded-pill px-4 fw-bold filter-btn active" data-filter="all">All Dishes</button>
+                </div>
+            </div>
+
+            <div class="row g-4" id="menu-grid">
+                <!-- Mutton Dum Biryani (nonveg) -->
+                <div class="col-lg-4 col-md-6 fade-up menu-item" data-category="nonveg">
+                    <div class="card menu-card h-100 border-0">
+                        <div class="position-relative overflow-hidden">
+                            <img src="images/mutton_dum_biryani.jpg" alt="Mutton Dum Biryani"
+                                class="card-img-top menu-img w-100" loading="lazy">
+                            <div class="position-absolute top-0 start-0 m-3 fs-3" title="Special">✨</div>
+                        </div>
+                        <div class="card-body p-4 d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h4 class="card-title fw-bold mb-0">Mutton Dum Biryani</h4>
+                            </div>
+                            <p class="card-text text-muted small mb-3 flex-grow-1">Rich and flavorful mutton biryani slow-cooked with aromatic spices.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <div>
+                                    <div class="d-flex gap-3 align-items-baseline">
+                                        <h4 class="fw-bold mb-0 text-primary">Full: ₹1800</h4>
+                                        <h5 class="fw-bold mb-0 text-muted">Half: ₹950</h5>
+                                    </div>
+                                    <div class="text-warning small mt-1">
+                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chicken Dum Biryani (nonveg) -->
+                <div class="col-lg-4 col-md-6 fade-up menu-item" data-category="nonveg">
+                    <div class="card menu-card h-100 border-0">
+                        <div class="position-relative overflow-hidden">
+                            <img src="images/chicken_biryani.jpg" alt="Chicken Dum Biryani"
+                                class="card-img-top menu-img w-100" loading="lazy">
+                            <div class="position-absolute top-0 start-0 m-3 fs-3" title="Popular">🤩</div>
+                            <button
+                                class="btn btn-light position-absolute top-0 end-0 m-3 rounded-circle shadow-sm text-danger"
+                                style="width: 40px; height: 40px; padding: 0;">
+                                <i class="bi bi-heart"></i>
+                            </button>
+                        </div>
+                        <div class="card-body p-4 d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h4 class="card-title fw-bold mb-0">Chicken Dum Biryani</h4>
+                            </div>
+                            <p class="card-text text-muted small mb-3 flex-grow-1">Tender chicken marinated in
+                                house-special spices, layered with long-grain basmati rice and slow-cooked to perfection
+                                (Dum style).</p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <div>
+                                    <div class="d-flex gap-3 align-items-baseline">
+                                        <h4 class="fw-bold mb-0 text-primary">Full: ₹1200</h4>
+                                        <h5 class="fw-bold mb-0 text-muted">Half: ₹650</h5>
+                                    </div>
+                                    <div class="text-warning small mt-1">
+                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i> <span class="text-muted">(128)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Veg Biryani (veg) -->
+                <div class="col-lg-4 col-md-6 fade-up menu-item" data-category="veg">
+                    <div class="card menu-card h-100 border-0">
+                        <div class="position-relative overflow-hidden">
+                            <img src="images/veg_biryani.jpg" alt="Veg Biryani" class="card-img-top menu-img w-100" loading="lazy">
+                            <div class="position-absolute top-0 start-0 m-3 fs-3" title="Veg">🥬</div>
+                        </div>
+                        <div class="card-body p-4 d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h4 class="card-title fw-bold mb-0">Veg Biryani</h4>
+                            </div>
+                            <p class="card-text text-muted small mb-3 flex-grow-1">Fragrant basmati rice cooked with a
+                                medley of fresh seasonal vegetables and aromatic house spices.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <div>
+                                    <div class="d-flex gap-3 align-items-baseline">
+                                        <h4 class="fw-bold mb-0 text-primary">Full: ₹1050</h4>
+                                        <h5 class="fw-bold mb-0 text-muted">Half: ₹550</h5>
+                                    </div>
+                                    <div class="text-warning small mt-1">
+                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i> <span class="text-muted">(85)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mutton Masala (nonveg) -->
+                <div class="col-lg-4 col-md-6 fade-up menu-item" data-category="nonveg">
+                    <div class="card menu-card h-100 border-0">
+                        <div class="position-relative overflow-hidden">
+                            <img src="images/mutton_masala.jpg" alt="Mutton Masala" class="card-img-top menu-img w-100" loading="lazy">
+                            <div class="position-absolute top-0 start-0 m-3 fs-3" title="Spicy">🔥</div>
+                        </div>
+                        <div class="card-body p-4 d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h4 class="card-title fw-bold mb-0">Mutton Masala</h4>
+                            </div>
+                            <p class="card-text text-muted small mb-3 flex-grow-1">Traditional slow-cooked mutton in a
+                                rich, spicy gravy made with roasted whole spices and fresh herbs.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <div>
+                                    <div class="d-flex gap-3 align-items-baseline">
+                                        <h4 class="fw-bold mb-0 text-primary">Full: ₹1500</h4>
+                                        <h5 class="fw-bold mb-0 text-muted">Half: ₹800</h5>
+                                    </div>
+                                    <div class="text-warning small mt-1">
+                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i> <span class="text-muted">(240)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chicken Masala (nonveg) -->
+                <div class="col-lg-4 col-md-6 fade-up menu-item" data-category="nonveg">
+                    <div class="card menu-card h-100 border-0">
+                        <div class="position-relative overflow-hidden">
+                            <img src="images/chicken_masala.png" alt="Chicken Masala"
+                                class="card-img-top menu-img w-100" loading="lazy">
+                        </div>
+                        <div class="card-body p-4 d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h4 class="card-title fw-bold mb-0">Chicken Masala</h4>
+                            </div>
+                            <p class="card-text text-muted small mb-3 flex-grow-1">Classic homestyle chicken cooked in a robust and spicy masala gravy.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <div>
+                                    <div class="d-flex gap-3 align-items-baseline">
+                                        <h4 class="fw-bold mb-0 text-primary">Full: ₹750</h4>
+                                        <h5 class="fw-bold mb-0 text-muted">Half: ₹400</h5>
+                                    </div>
+                                    <div class="text-warning small mt-1">
+                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chicken Kharda (nonveg) -->
+                <div class="col-lg-4 col-md-6 fade-up menu-item" data-category="nonveg">
+                    <div class="card menu-card h-100 border-0">
+                        <div class="position-relative overflow-hidden">
+                            <img src="images/chicken_kharda.png" alt="Chicken Kharda"
+                                class="card-img-top menu-img w-100" loading="lazy">
+                            <div class="position-absolute top-0 start-0 m-3 fs-3" title="Spicy">🔥</div>
+                        </div>
+                        <div class="card-body p-4 d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h4 class="card-title fw-bold mb-0">Chicken Kharda</h4>
+                            </div>
+                            <p class="card-text text-muted small mb-3 flex-grow-1">Extremely fiery traditional Maharashtrian dry chicken preparation tossed with green chilies.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <div>
+                                    <div class="d-flex gap-3 align-items-baseline">
+                                        <h4 class="fw-bold mb-0 text-primary">Full: ₹780</h4>
+                                        <h5 class="fw-bold mb-0 text-muted">Half: ₹410</h5>
+                                    </div>
+                                    <div class="text-warning small mt-1">
+                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mutton Handi (nonveg) -->
+                <div class="col-lg-4 col-md-6 fade-up menu-item" data-category="nonveg">
+                    <div class="card menu-card h-100 border-0">
+                        <div class="position-relative overflow-hidden">
+                            <img src="images/mutton_handi.png" alt="Mutton Handi"
+                                class="card-img-top menu-img w-100" loading="lazy">
+                            <div class="position-absolute top-0 start-0 m-3 fs-3" title="Premium">👑</div>
+                        </div>
+                        <div class="card-body p-4 d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h4 class="card-title fw-bold mb-0">Mutton Handi</h4>
+                            </div>
+                            <p class="card-text text-muted small mb-3 flex-grow-1">Premium tender mutton chunks cooked with aromatic whole spices in a sealed pot.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <div>
+                                    <div class="d-flex gap-3 align-items-baseline">
+                                        <h4 class="fw-bold mb-0 text-primary">Full: ₹1400</h4>
+                                        <h5 class="fw-bold mb-0 text-muted">Half: ₹780</h5>
+                                    </div>
+                                    <div class="text-warning small mt-1">
+                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chicken Tandoori (nonveg) -->
+                <div class="col-lg-4 col-md-6 fade-up menu-item" data-category="nonveg">
+                    <div class="card menu-card h-100 border-0">
+                        <div class="position-relative overflow-hidden">
+                            <img src="images/chicken_tandoori.jpg" alt="Chicken Tandoori"
+                                class="card-img-top menu-img w-100" loading="lazy">
+                            <div class="position-absolute top-0 start-0 m-3 fs-3" title="Tandoor Special">🍗</div>
+                        </div>
+                        <div class="card-body p-4 d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h4 class="card-title fw-bold mb-0">Chicken Tandoori</h4>
+                            </div>
+                            <p class="card-text text-muted small mb-3 flex-grow-1">Classic clay-oven roasted chicken,
+                                marinated in a tangy yogurt and spice mix for a smoky, charred flavor.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <div>
+                                    <div class="d-flex gap-3 align-items-baseline">
+                                        <h4 class="fw-bold mb-0 text-primary">Full: ₹860</h4>
+                                        <h5 class="fw-bold mb-0 text-muted">Half: ₹450</h5>
+                                    </div>
+                                    <div class="text-warning small mt-1">
+                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i> <span class="text-muted">(195)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chicken Handi (nonveg) -->
+                <div class="col-lg-4 col-md-6 fade-up menu-item" data-category="nonveg">
+                    <div class="card menu-card h-100 border-0">
+                        <div class="position-relative overflow-hidden">
+                            <img src="images/chicken_handi.jpg" alt="Chicken Handi"
+                                class="card-img-top menu-img w-100" loading="lazy">
+                        </div>
+                        <div class="card-body p-4 d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h4 class="card-title fw-bold mb-0">Chicken Handi</h4>
+                            </div>
+                            <p class="card-text text-muted small mb-3 flex-grow-1">Creamy and mildly spiced chicken curry slow-cooked in a traditional handi.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <div>
+                                    <div class="d-flex gap-3 align-items-baseline">
+                                        <h4 class="fw-bold mb-0 text-primary">Full: ₹650</h4>
+                                        <h5 class="fw-bold mb-0 text-muted">Half: ₹375</h5>
+                                    </div>
+                                    <div class="text-warning small mt-1">
+                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pav Bhaji (veg) -->
+                <div class="col-lg-4 col-md-6 fade-up menu-item" data-category="veg">
+                    <div class="card menu-card h-100 border-0">
+                        <div class="position-relative overflow-hidden">
+                            <img src="images/pavbhaji.png" alt="Pav Bhaji" class="card-img-top menu-img w-100"
+                                loading="lazy">
+                        </div>
+                        <div class="card-body p-4 d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h4 class="card-title fw-bold mb-0">Pav Bhaji (Only Bhaji)</h4>
+                            </div>
+                            <p class="card-text text-muted small mb-3 flex-grow-1">Mumbai's favorite street food - a
+                                thick, spicy vegetable mash served with buttery, toasted pav buns.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <div>
+                                    <h3 class="fw-bold mb-0 price">₹350</h3>
+                                    <div class="text-warning small mt-1">
+                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i> <span class="text-muted">(450)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Veg Tawa Pulav (veg) -->
+                <div class="col-lg-4 col-md-6 fade-up menu-item" data-category="veg">
+                    <div class="card menu-card h-100 border-0">
+                        <div class="position-relative overflow-hidden">
+                            <img src="images/tawa_pulav.png" alt="Veg Tawa Pulav" class="card-img-top menu-img w-100"
+                                loading="lazy">
+                            <div class="position-absolute top-0 start-0 m-3 fs-3" title="Chef's Pick">👨‍🍳</div>
+                        </div>
+                        <div class="card-body p-4 d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h4 class="card-title fw-bold mb-0">Veg Tawa Pulav</h4>
+                            </div>
+                            <p class="card-text text-muted small mb-3 flex-grow-1">Street-style pulao prepared on a flat
+                                tawa with buttery vegetables and special house-made pav bhaji masala.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <div>
+                                    <div class="d-flex gap-3 align-items-baseline">
+                                        <h4 class="fw-bold mb-0 text-primary">Full: ₹950</h4>
+                                        <h5 class="fw-bold mb-0 text-muted">Half: ₹500</h5>
+                                    </div>
+                                    <div class="text-warning small mt-1">
+                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i> <span class="text-muted">(310)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </section>
+
+
+
+    <!-- ================= TESTIMONIALS ================= -->
+    <section id="testimonials">
+        <div class="container">
+            <div class="text-center mb-5 fade-up">
+                <span class="text-primary fw-bold text-uppercase tracking-wide">Testimonials</span>
+                <h2 class="display-6 fw-bold mt-2">What Our Customers Say</h2>
+            </div>
+            <div class="testimonial-slider-container fade-up">
+                <div class="testimonial-slider">
+                    <!-- Slide 1 -->
+                    <div class="testimonial-slide">
+                        <div class="testimonial-card">
+                            <div class="text-warning mb-3 fs-5">
+                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                            </div>
+                            <p class="testimonial-text">"I recently ordered Chicken Biryani and Chicken Kharda from Aadya's Kitchen and honestly, the taste was outstanding. The biryani had perfect spice balance and the chicken was soft, juicy, and full of flavor. Chicken Kharda had that authentic spicy Maharashtrian touch which made the meal even better. The packaging was neat and hygienic, and the food arrived fresh and hot. You can genuinely feel the homemade quality in every bite. Highly recommended for non-veg lovers."</p>
+                            <h5 class="testimonial-name fw-bold mb-0">Swati</h5>
+                        </div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="testimonial-slide">
+                        <div class="testimonial-card">
+                            <div class="text-warning mb-3 fs-5">
+                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                            </div>
+                            <p class="testimonial-text">"Being a vegetarian, I tried the Pav Bhaji and Tawa Pulav from Aadya's Kitchen and both dishes exceeded my expectations. The Pav Bhaji was buttery, flavorful, and perfectly mashed with fresh vegetables. Tawa Pulav had amazing aroma and street-style taste without being too oily. The hygiene and food quality were clearly maintained very well. Portion size was also satisfying for the price. Definitely ordering again soon with my family."</p>
+                            <h5 class="testimonial-name fw-bold mb-0">Poonam</h5>
+                        </div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="testimonial-slide">
+                        <div class="testimonial-card">
+                            <div class="text-warning mb-3 fs-5">
+                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                            </div>
+                            <p class="testimonial-text">"I ordered Mutton Biryani for dinner and it turned out to be one of the best biryanis I have had in Pune. The rice was long, perfectly cooked, and filled with rich masala flavor. The mutton pieces were tender and cooked beautifully without being chewy. What impressed me most was the cleanliness in packaging and the fresh homemade taste. Aadya's Kitchen truly delivers restaurant-quality food with a homely touch."</p>
+                            <h5 class="testimonial-name fw-bold mb-0">Vivek</h5>
+                        </div>
+                    </div>
+                    <!-- Slide 4 -->
+                    <div class="testimonial-slide">
+                        <div class="testimonial-card">
+                            <div class="text-warning mb-3 fs-5">
+                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                            </div>
+                            <p class="testimonial-text">"Tried Mutton Masala along with Tawa Pulav and the combination was simply amazing. The gravy was rich, spicy, and full of authentic Maharashtrian flavors. The mutton was cooked perfectly and blended very well with the masala. Tawa Pulav complemented the dish perfectly with its smoky and delicious taste. Food quality, hygiene, and presentation were excellent. You can clearly see the passion behind the cooking."</p>
+                            <h5 class="testimonial-name fw-bold mb-0">Chaitrali</h5>
+                        </div>
+                    </div>
+                    <!-- Slide 5 -->
+                    <div class="testimonial-slide">
+                        <div class="testimonial-card">
+                            <div class="text-warning mb-3 fs-5">
+                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                            </div>
+                            <p class="testimonial-text">"I had ordered Chicken Biryani and Pav Bhaji for a small family gathering and everyone loved the food. The biryani was aromatic, flavorful, and had generous chicken pieces. Even the kids enjoyed the Pav Bhaji because it was tasty without being overly spicy. The food was packed hygienically and delivered fresh on time. Aadya's Kitchen has now become one of our favorite places for comfort food."</p>
+                            <h5 class="testimonial-name fw-bold mb-0">Ruta</h5>
+                        </div>
+                    </div>
+                    <!-- Slide 6 -->
+                    <div class="testimonial-slide">
+                        <div class="testimonial-card">
+                            <div class="text-warning mb-3 fs-5">
+                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                            </div>
+                            <p class="testimonial-text">"I am very particular about hygiene and taste while ordering food online, and Aadya's Kitchen impressed me on both points. I tried Chicken Kharda and Mutton Masala and both dishes had authentic homemade flavors. The spices were perfectly balanced and the quality of meat was excellent. The food was fresh, hot, and packed very neatly. It feels like food made with care and passion rather than commercial cooking."</p>
+                            <h5 class="testimonial-name fw-bold mb-0">Vidya</h5>
+                        </div>
+                    </div>
+                    <!-- Slide 7 -->
+                    <div class="testimonial-slide">
+                        <div class="testimonial-card">
+                            <div class="text-warning mb-3 fs-5">
+                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                            </div>
+                            <p class="testimonial-text">"Ordered only Pav Bhaji this time and it was absolutely worth it. The bhaji was smooth, flavorful, and loaded with buttery taste just like classic street-style pav bhaji. The pav was soft, fresh, and perfectly toasted. I also appreciated the hygienic packaging and fresh ingredients used in the preparation. Simple dish but prepared with great quality and consistency."</p>
+                            <h5 class="testimonial-name fw-bold mb-0">Nirmal</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation dots -->
+                <div class="testimonial-dots">
+                    <span class="dot active" data-index="0"></span>
+                    <span class="dot" data-index="1"></span>
+                    <span class="dot" data-index="2"></span>
+                    <span class="dot" data-index="3"></span>
+                    <span class="dot" data-index="4"></span>
+                    <span class="dot" data-index="5"></span>
+                    <span class="dot" data-index="6"></span>
+                </div>
+
+                <!-- Navigation arrows -->
+                <button class="slider-arrow prev-arrow" aria-label="Previous Review">
+                    <i class="bi bi-chevron-left"></i>
+                </button>
+                <button class="slider-arrow next-arrow" aria-label="Next Review">
+                    <i class="bi bi-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= ABOUT US ================= -->
+    <section id="about" class="section-bg-alt">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6 fade-up">
+                    <div class="position-relative p-4 p-md-5 w-100">
+                        <!-- Blurred Background Container -->
+                        <div class="position-absolute top-0 start-0 w-100 h-100 rounded-4 overflow-hidden shadow-lg"
+                            style="z-index: 0;">
+                            <div class="position-absolute top-0 start-0 w-100 h-100"
+                                style="background: url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80') center/cover; filter: blur(2px); transform: scale(1.1);">
+                            </div>
+                            <!-- Overlay for contrast -->
+                            <div class="position-absolute top-0 start-0 w-100 h-100"
+                                style="background: rgba(0,0,0,0.15);">
+                            </div>
+                        </div>
+
+                        <!-- Main Image with 3D Effect -->
+                        <div class="position-relative"
+                            style="z-index: 2; transform: perspective(1000px) rotateY(-8deg) rotateX(5deg); transform-style: preserve-3d; transition: transform 0.5s ease;"
+                            onmouseover="this.style.transform='perspective(1000px) rotateY(0deg) rotateX(0deg)'"
+                            onmouseout="this.style.transform='perspective(1000px) rotateY(-8deg) rotateX(5deg)'">
+                            <img src="images/radhika.jpeg" alt="Radhika Asawale Gangavane"
+                                class="img-fluid rounded-4 w-100"
+                                style="box-shadow: 25px 25px 50px rgba(0,0,0,0.5), -10px -10px 30px rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.5); aspect-ratio: 4/5; object-fit: cover;">
+                        </div>
+
+                        <!-- Experience Badge -->
+                        <div class="position-absolute bottom-0 end-0 bg-primary text-white p-4 rounded-4 shadow-lg m-n2 m-md-n3 d-none d-sm-block text-center glass-card"
+                            style="border-color: rgba(255,255,255,0.2); z-index: 3;">
+                            <h2 class="display-5 fw-bold mb-0 text-white"><span id="years-experience"></span>+</h2>
+                            <p class="mb-0 fw-medium">Years of Experience</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 fade-up ps-lg-5">
+                    <span class="text-primary fw-bold text-uppercase tracking-wide">About Us</span>
+                    <h2 class="display-6 fw-bold mt-2 mb-4">Food Passion Since 2020</h2>
+                    <p class="lead mb-4">Hello and welcome to Aadya’s Kitchen.</p>
+                    <p class="mb-3">I am Radhika Asawale Gangavane, and cooking has always been one of the biggest
+                        passions of my life. For me, food is not just about recipes or ingredients. It is about
+                        emotions, memories, and bringing people together with great taste.</p>
+                    <p class="mb-3">Since the beginning, I have loved preparing dishes for family, friends, and guests
+                        at home. Whether it was flavorful biryani, delicious non veg dishes, spicy pav bhaji, or
+                        homemade comfort meals, people always appreciated my cooking and encouraged me to do something
+                        bigger with this passion.</p>
+                    <p class="mb-3">Their love, compliments, and support gave me the confidence to start this cloud
+                        kitchen journey in 2020. With strong encouragement from my family, I decided to turn my passion
+                        into something that could reach more people and make them happy through food.</p>
+                    <p class="mb-3">Every dish prepared in my kitchen is made with fresh ingredients, proper hygiene,
+                        authentic flavors, and most importantly, genuine care. I always focus on serving food that feels
+                        homemade, satisfying, and memorable.</p>
+                    <p class="mb-3">Cooking for people and seeing them enjoy the food gives me immense happiness and
+                        motivation every single day. My goal has always been simple — to serve delicious food that makes
+                        people feel connected, comfortable, and excited for their next meal.</p>
+                    <p class="mb-3">Last but not least, I would like to thank my lovable daughter Aadya, who became the
+                        inspiration behind starting Aadya’s Kitchen and this beautiful journey. Her name will always
+                        remain the heart of this dream.</p>
+                    <p class="mb-4">Thank you for being part of this journey and supporting my dream. I truly hope every
+                        order from our kitchen brings taste, happiness, and beautiful moments to your table.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section id="contact">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-5 fade-up">
+                    <span class="text-primary fw-bold text-uppercase tracking-wide">Contact Us</span>
+                    <h2 class="display-6 fw-bold mt-2 mb-4">Get in Touch</h2>
+                    <p class="mb-5 text-muted">Made fresh in our kitchen, enjoyed at your table.</p>
+
+                    <div class="d-flex align-items-start gap-4 mb-4">
+                        <div>
+                            <h5 class="fw-bold mb-1">📍 Our Location</h5>
+                            <p class="text-muted mb-0">C-4, 901, Prayeja City, Phase - 1, Sinhgad road, Pune</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-start gap-4 mb-4">
+                        <div>
+                            <h5 class="fw-bold mb-1">✉️ Email Us</h5>
+                            <p class="text-muted mb-0">rasawale@gmail.com</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-start gap-4 mb-4">
+                        <div>
+                            <h5 class="fw-bold mb-1">📞 Call Us</h5>
+                            <p class="text-muted mb-0">+91 97669 31302</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-start gap-4">
+                        <div>
+                            <h5 class="fw-bold mb-1">📜 fssai LIC NO.</h5>
+                            <p class="text-muted mb-0">21524027001424</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7 fade-up" id="location">
+                    <div class="text-center mb-4">
+                        <span class="text-primary fw-bold text-uppercase tracking-wide">Our Location</span>
+                        <h2 class="display-6 fw-bold mt-2">Find Us in Prayeja City, Pune</h2>
+                    </div>
+                    <div class="rounded-5 overflow-hidden shadow-lg position-relative"
+                        style="height: 450px; background-color: var(--surface-color);">
+                        <!-- Google Maps iframe -->
+                        <iframe
+                            src="https://maps.google.com/maps?q=18.4670985,73.8135672&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+
+                        <!-- Custom Biryani Marker Overlay -->
+                        <div class="position-absolute"
+                            style="top: 50%; left: 50%; transform: translate(-50%, -100%); pointer-events: none; z-index: 10; margin-top: -15px;">
+                            <div class="position-relative d-flex flex-column align-items-center">
+                                <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=100&q=80"
+                                    alt="Biryani Marker" class="rounded-circle shadow-lg border border-4 border-primary"
+                                    style="width: 80px; height: 80px; object-fit: cover;">
+                                <!-- Pin pointy bottom -->
+                                <div
+                                    style="width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 15px solid var(--primary); margin-top: -2px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="pt-5 pb-4">
+        <div class="container pt-4">
+            <div class="row g-4 mb-5">
+                <div class="col-lg-6 col-md-6">
+                    <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                        <img src="images/logo.png" alt="Aadya's Kitchen Logo" height="40"
+                            class="d-inline-block align-text-top">
+                        <span class="fs-4 fw-bolder">Aadya's Kitchen</span>
+                    </a>
+                    <br><br>
+                    <p class="text-muted mb-4 pe-4">Enjoy delicious homemade meals prepared with care, traditional
+                        recipes, and fresh ingredients for a truly satisfying experience.</p>
+                    <div class="social-links d-flex gap-2">
+                        <a href="https://www.facebook.com/radhika.asawale" target="_blank" rel="noopener noreferrer"><i
+                                class="bi bi-facebook"></i></a>
+                        <a href="https://www.instagram.com/aadyas_creative_corner/" target="_blank"
+                            rel="noopener noreferrer"><i class="bi bi-instagram"></i></a>
+                        <a href="https://wa.me/919766931302" target="_blank" rel="noopener noreferrer"><i
+                                class="bi bi-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <h5 class="fw-bold mb-4">Quick Links</h5>
+                    <ul class="list-unstyled d-flex flex-row flex-wrap gap-4">
+                        <li><a href="#home" class="text-muted text-decoration-none hover-primary">Home</a></li>
+                        <li><a href="#menu" class="text-muted text-decoration-none hover-primary">Menu</a></li>
+                        <li><a href="#location" class="text-muted text-decoration-none hover-primary">Location</a></li>
+                        <li><a href="#about" class="text-muted text-decoration-none hover-primary">About Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center pt-4 border-top border-secondary border-opacity-10">
+                <p class="mb-0 text-muted">&copy; <span id="year"></span> Aadya's Kitchen Cloud Kitchen. All rights
+                    reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ================= BACK TO TOP ================= -->
+    <button id="back-to-top" aria-label="Back to top">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set current year in footer (IST)
+            const formatter = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Kolkata', year: 'numeric' });
+            const currentYearStr = formatter.format(new Date());
+            document.getElementById('year').textContent = currentYearStr;
+
+            // Calculate Dynamic Years of Experience
+            const currentYear = parseInt(currentYearStr, 10);
+            const startYear = 2020;
+            const yearsExperience = currentYear - startYear - 1;
+            const yearsExpEl = document.getElementById('years-experience');
+            if (yearsExpEl) yearsExpEl.textContent = yearsExperience;
+
+            // Loader removal
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 600);
+            }, 1000);
+
+            // Dark Mode Toggle
+            const themeToggle = document.getElementById('theme-toggle');
+            const icon = themeToggle.querySelector('i');
+
+            function updateThemeIcon(theme) {
+                if (theme === 'dark') {
+                    icon.classList.replace('bi-moon-fill', 'bi-sun-fill');
+                } else {
+                    icon.classList.replace('bi-sun-fill', 'bi-moon-fill');
+                }
+            }
+
+            // Init icon
+            updateThemeIcon(document.documentElement.getAttribute('data-theme'));
+
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcon(newTheme);
+            });
+
+            // Navbar & Back to Top & Mobile CTA Scroll Logic
+            const navbar = document.querySelector('.navbar');
+            const backToTop = document.getElementById('back-to-top');
+            const mobileCta = document.querySelector('.mobile-cta');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('show');
+                    if (mobileCta) mobileCta.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('show');
+                    if (mobileCta) mobileCta.classList.remove('visible');
+                }
+            });
+
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Scroll Animations (Intersection Observer)
+            const observerOptions = {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+            // Contact form logic removed
+            // Typing Effect
+            const words = [
+                "Chicken Dum Biryani",
+                "Mutton Dum Biryani",
+                "Chicken Masala",
+                "Chicken Handi",
+                "Mutton Masala",
+                "Mutton Handi",
+                "Chicken Kharda",
+                "Chicken Tandoor",
+                "Veg Biryani",
+                "Veg Tawa Pulav",
+                "Pav Bhaji"
+            ];
+            let i = 0;
+            let timer;
+
+            function typingEffect() {
+                let word = words[i].split("");
+                var loopTyping = function () {
+                    if (word.length > 0) {
+                        document.getElementById('typing-text').innerHTML += word.shift();
+                    } else {
+                        setTimeout(deletingEffect, 1500); // Wait 1.5s before deleting
+                        return false;
+                    }
+                    timer = setTimeout(loopTyping, 100);
+                };
+                loopTyping();
+            }
+
+            function deletingEffect() {
+                let word = words[i].split("");
+                var loopDeleting = function () {
+                    if (word.length > 0) {
+                        word.pop();
+                        document.getElementById('typing-text').innerHTML = word.join("");
+                    } else {
+                        if (words.length > (i + 1)) {
+                            i++;
+                        } else {
+                            i = 0;
+                        }
+                        typingEffect();
+                        return false;
+                    }
+                    timer = setTimeout(loopDeleting, 50);
+                };
+                loopDeleting();
+            }
+
+            typingEffect();
+
+            // Testimonial Slider Logic
+            const slides = document.querySelectorAll('.testimonial-slide');
+            const dots = document.querySelectorAll('.testimonial-dots .dot');
+            const prevArrow = document.querySelector('.prev-arrow');
+            const nextArrow = document.querySelector('.next-arrow');
+            let currentSlide = 0;
+            let slideInterval;
+
+            function isCenterSlideHovered() {
+                const activeSlide = document.querySelector('.testimonial-slide.active');
+                return activeSlide && activeSlide.matches(':hover');
+            }
+
+            function updateSlides() {
+                slides.forEach((slide, idx) => {
+                    slide.classList.remove('active', 'prev', 'next');
+                    
+                    const totalSlides = slides.length;
+                    const prevIdx = (currentSlide - 1 + totalSlides) % totalSlides;
+                    const nextIdx = (currentSlide + 1) % totalSlides;
+                    
+                    if (idx === currentSlide) {
+                        slide.classList.add('active');
+                    } else if (idx === prevIdx) {
+                        slide.classList.add('prev');
+                    } else if (idx === nextIdx) {
+                        slide.classList.add('next');
+                    }
+                });
+
+                dots.forEach((dot, idx) => {
+                    dot.classList.toggle('active', idx === currentSlide);
+                });
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                updateSlides();
+            }
+
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                updateSlides();
+            }
+
+            function startSlideShow() {
+                stopSlideShow();
+                if (!isCenterSlideHovered()) {
+                    slideInterval = setInterval(nextSlide, 7000); // 7 seconds
+                }
+            }
+
+            function stopSlideShow() {
+                if (slideInterval) {
+                    clearInterval(slideInterval);
+                }
+            }
+
+            // Click and hover events for slides
+            slides.forEach((slide, idx) => {
+                // Click events for side slides
+                slide.addEventListener('click', () => {
+                    const totalSlides = slides.length;
+                    const prevIdx = (currentSlide - 1 + totalSlides) % totalSlides;
+                    const nextIdx = (currentSlide + 1) % totalSlides;
+
+                    if (idx === prevIdx) {
+                        currentSlide = prevIdx;
+                        updateSlides();
+                        startSlideShow();
+                    } else if (idx === nextIdx) {
+                        currentSlide = nextIdx;
+                        updateSlides();
+                        startSlideShow();
+                    }
+                });
+
+                // Mouse hover events on slide
+                slide.addEventListener('mouseenter', () => {
+                    if (slide.classList.contains('active')) {
+                        stopSlideShow();
+                    }
+                });
+
+                slide.addEventListener('mouseleave', () => {
+                    startSlideShow();
+                });
+            });
+
+            // Arrow button click events
+            if (prevArrow) {
+                prevArrow.addEventListener('click', () => {
+                    prevSlide();
+                    startSlideShow();
+                });
+            }
+
+            if (nextArrow) {
+                nextArrow.addEventListener('click', () => {
+                    nextSlide();
+                    startSlideShow();
+                });
+            }
+
+            dots.forEach((dot) => {
+                dot.addEventListener('click', (e) => {
+                    currentSlide = parseInt(e.target.getAttribute('data-index'), 10);
+                    updateSlides();
+                    startSlideShow();
+                });
+            });
+
+            // Initialize Testimonials
+            updateSlides();
+            startSlideShow();
+
+            // Menu Filtering Logic
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const menuItems = document.querySelectorAll('.menu-item');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    // Update active state on buttons
+                    filterBtns.forEach(b => {
+                        b.classList.remove('btn-primary', 'active');
+                        b.classList.add('btn-outline-primary');
+                    });
+                    e.target.classList.remove('btn-outline-primary');
+                    e.target.classList.add('btn-primary', 'active');
+
+                    const filter = e.target.getAttribute('data-filter');
+
+                    // Filter items
+                    menuItems.forEach(item => {
+                        if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                            item.classList.remove('d-none');
+                        } else {
+                            item.classList.add('d-none');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
