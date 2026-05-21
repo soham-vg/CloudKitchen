@@ -2130,15 +2130,41 @@
             });
 
             // Visitor Counter
-            let visitorCount = parseInt(localStorage.getItem('visitor_count'), 10) || 1250;
-            if (!sessionStorage.getItem('has_visited')) {
-                visitorCount++;
-                localStorage.setItem('visitor_count', visitorCount);
-                sessionStorage.setItem('has_visited', 'true');
-            }
+            const isHttp = window.location.protocol.startsWith('http');
             const visitorCountEl = document.getElementById('visitor-count');
-            if (visitorCountEl) {
-                visitorCountEl.textContent = visitorCount;
+
+            if (isHttp) {
+                // Server-based counter
+                const hasVisited = sessionStorage.getItem('has_visited');
+                const method = hasVisited ? 'GET' : 'POST';
+
+                fetch('/api/visitors', { method })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data && typeof data.count !== 'undefined') {
+                            if (visitorCountEl) visitorCountEl.textContent = data.count;
+                            sessionStorage.setItem('has_visited', 'true');
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Error fetching visitor count:', err);
+                        fallbackToLocalStorage();
+                    });
+            } else {
+                // Fallback to local storage (e.g. when opened via file://)
+                fallbackToLocalStorage();
+            }
+
+            function fallbackToLocalStorage() {
+                let visitorCount = parseInt(localStorage.getItem('visitor_count'), 10) || 1234;
+                if (!sessionStorage.getItem('has_visited')) {
+                    visitorCount++;
+                    localStorage.setItem('visitor_count', visitorCount);
+                    sessionStorage.setItem('has_visited', 'true');
+                }
+                if (visitorCountEl) {
+                    visitorCountEl.textContent = visitorCount;
+                }
             }
         });
     </script>
