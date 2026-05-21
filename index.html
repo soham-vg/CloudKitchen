@@ -1819,6 +1819,13 @@
                         <li><a href="#location" class="text-muted text-decoration-none hover-primary">Location</a></li>
                         <li><a href="#about" class="text-muted text-decoration-none hover-primary">About Us</a></li>
                     </ul>
+                    <div class="mt-4">
+                        <span class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill shadow-sm" 
+                              style="background-color: var(--bg-color); border: 1px solid var(--border-color); font-size: 0.9rem; color: var(--text-color);">
+                            <i class="bi bi-people-fill text-primary"></i>
+                            <span>Visitors: <strong id="visitor-count" class="text-primary ms-1">0</strong></span>
+                        </span>
+                    </div>
                 </div>
             </div>
             <div class="text-center pt-4 border-top border-secondary border-opacity-10">
@@ -2121,6 +2128,18 @@
                     });
                 });
             });
+
+            // Visitor Counter
+            let visitorCount = parseInt(localStorage.getItem('visitor_count'), 10) || 1250;
+            if (!sessionStorage.getItem('has_visited')) {
+                visitorCount++;
+                localStorage.setItem('visitor_count', visitorCount);
+                sessionStorage.setItem('has_visited', 'true');
+            }
+            const visitorCountEl = document.getElementById('visitor-count');
+            if (visitorCountEl) {
+                visitorCountEl.textContent = visitorCount;
+            }
         });
     </script>
 </body>
