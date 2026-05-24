@@ -996,421 +996,6 @@
                 color: white;
             }
         }
-		
-		/* =========================================================
-   FULL RESPONSIVE FIXES
-   Add this at the END of existing CSS
-========================================================= */
-
-/* ---------- GLOBAL ---------- */
-
-img {
-    max-width: 100%;
-    height: auto;
-}
-
-.container {
-    width: 100%;
-    overflow-x: hidden;
-}
-
-body,
-html {
-    overflow-x: hidden !important;
-}
-
-/* ---------- NAVBAR ---------- */
-
-@media (max-width: 991px) {
-
-    .navbar {
-        padding: 10px 0;
-    }
-
-    .navbar-brand {
-        font-size: 1rem;
-        max-width: 75%;
-        line-height: 1.2;
-    }
-
-    .navbar-brand img {
-        width: 38px;
-        height: 38px;
-    }
-
-    .navbar-collapse {
-        margin-top: 15px;
-        padding: 15px;
-        border-radius: 16px;
-        background: var(--surface-color);
-        box-shadow: var(--shadow-md);
-    }
-
-    .nav-link {
-        margin: 10px 0;
-        text-align: center;
-    }
-
-    .navbar-toggler i {
-        font-size: 2rem !important;
-    }
-}
-
-/* ---------- HERO SECTION ---------- */
-
-@media (max-width: 1200px) {
-
-    .hero-section {
-        padding-top: 150px;
-    }
-
-    .display-3 {
-        font-size: 3rem;
-    }
-}
-
-@media (max-width: 991px) {
-
-    .hero-section {
-        min-height: auto;
-        padding-top: 130px;
-        padding-bottom: 60px;
-        text-align: center;
-    }
-
-    .hero-section .row {
-        row-gap: 40px;
-    }
-
-    .display-3 {
-        font-size: 2.4rem;
-    }
-
-    .lead.fs-4 {
-        font-size: 1.2rem !important;
-    }
-
-    .hero-img {
-        max-width: 420px;
-    }
-
-    .food-anim-container,
-    .dish-anim-wrapper {
-        max-width: 420px;
-    }
-
-    .floating-emoji {
-        font-size: 2rem;
-    }
-
-    .ingredient-img {
-        width: 70px;
-        height: 70px;
-    }
-
-    .ingredient-name {
-        font-size: 0.75rem;
-    }
-
-    .cooking-bowl {
-        width: 110px;
-        height: 110px;
-        margin-top: -55px;
-        margin-left: -55px;
-    }
-}
-
-@media (max-width: 768px) {
-
-    section {
-        padding: 70px 0;
-    }
-
-    .hero-section {
-        padding-top: 120px;
-    }
-
-    .display-3 {
-        font-size: 2rem;
-        line-height: 1.3 !important;
-    }
-
-    .hero-img {
-        max-width: 320px;
-    }
-
-    .food-anim-container,
-    .dish-anim-wrapper {
-        max-width: 320px;
-    }
-
-    .ingredient-img {
-        width: 55px;
-        height: 55px;
-    }
-
-    .ingredient-name {
-        font-size: 0.65rem;
-        padding: 3px 8px;
-    }
-
-    .floating-emoji {
-        font-size: 1.5rem;
-    }
-
-    .emoji-1 {
-        left: 0;
-    }
-
-    .emoji-2 {
-        left: 0;
-    }
-
-    .emoji-3 {
-        right: 0;
-    }
-
-    .emoji-4 {
-        right: 0;
-    }
-
-    .cooking-bowl {
-        width: 90px;
-        height: 90px;
-        margin-top: -45px;
-        margin-left: -45px;
-    }
-
-    .hero-section .btn-lg {
-        width: 100%;
-        justify-content: center;
-    }
-
-    .hero-section .d-flex.gap-3 {
-        justify-content: center;
-    }
-}
-
-@media (max-width: 480px) {
-
-    .display-3 {
-        font-size: 1.7rem;
-    }
-
-    .lead.fs-4 {
-        font-size: 1rem !important;
-    }
-
-    .food-anim-container,
-    .dish-anim-wrapper {
-        max-width: 260px;
-    }
-
-    .ingredient-img {
-        width: 45px;
-        height: 45px;
-    }
-
-    .ingredient-name {
-        display: none;
-    }
-
-    .floating-emoji {
-        font-size: 1.2rem;
-    }
-}
-
-/* ---------- MENU ---------- */
-
-@media (max-width: 768px) {
-
-    .menu-img {
-        height: 220px;
-    }
-
-    .card-body {
-        padding: 1.25rem !important;
-    }
-
-    .card-title {
-        font-size: 1.2rem;
-    }
-
-    .price,
-    .text-primary {
-        font-size: 1.2rem !important;
-    }
-
-    #menu-filters {
-        gap: 10px !important;
-    }
-
-    #menu-filters .btn {
-        width: 100%;
-        max-width: 260px;
-    }
-}
-
-@media (max-width: 576px) {
-
-    .menu-img {
-        height: 200px;
-    }
-
-    .card-title {
-        font-size: 1.1rem;
-    }
-
-    .card-text {
-        font-size: 0.9rem;
-    }
-
-    .d-flex.gap-3.align-items-baseline {
-        flex-direction: column;
-        gap: 2px !important;
-        align-items: flex-start !important;
-    }
-}
-
-/* ---------- FEATURES ---------- */
-
-@media (max-width: 768px) {
-
-    .feature-icon-box {
-        width: 65px;
-        height: 65px;
-        font-size: 1.6rem;
-    }
-}
-
-/* ---------- TESTIMONIALS ---------- */
-
-@media (max-width: 991px) {
-
-    .testimonial-slider-container {
-        height: 520px;
-    }
-
-    .testimonial-card {
-        padding: 25px;
-    }
-
-    .testimonial-text {
-        font-size: 1rem;
-    }
-}
-
-@media (max-width: 576px) {
-
-    .testimonial-slider-container {
-        height: 580px;
-    }
-
-    .testimonial-card {
-        padding: 20px;
-        border-radius: 16px;
-    }
-
-    .testimonial-text {
-        font-size: 0.92rem;
-        line-height: 1.6;
-    }
-
-    .slider-arrow {
-        width: 36px;
-        height: 36px;
-    }
-}
-
-/* ---------- ABOUT SECTION ---------- */
-
-@media (max-width: 991px) {
-
-    #about .row {
-        row-gap: 40px;
-    }
-
-    #about .ps-lg-5 {
-        padding-left: 12px !important;
-    }
-
-    #about .display-6 {
-        font-size: 2rem;
-    }
-}
-
-@media (max-width: 768px) {
-
-    #about .position-relative[style*="perspective"] {
-        transform: none !important;
-    }
-
-    #about img {
-        aspect-ratio: auto !important;
-    }
-
-    #about .display-6 {
-        font-size: 1.8rem;
-    }
-}
-
-@media (max-width: 576px) {
-
-    #about .display-6 {
-        font-size: 1.5rem;
-    }
-
-    #about p {
-        font-size: 0.95rem;
-    }
-}
-
-/* ---------- BACK TO TOP ---------- */
-
-@media (max-width: 576px) {
-
-    #back-to-top {
-        right: 15px;
-        bottom: 15px;
-        padding: 10px 16px;
-        font-size: 1.2rem;
-    }
-}
-
-/* ---------- FOOTER ---------- */
-
-@media (max-width: 768px) {
-
-    footer {
-        text-align: center;
-    }
-
-    .social-links {
-        justify-content: center !important;
-    }
-}
-
-/* ---------- EXTRA SMALL DEVICES ---------- */
-
-@media (max-width: 360px) {
-
-    .display-3 {
-        font-size: 1.45rem;
-    }
-
-    .navbar-brand {
-        font-size: 0.9rem;
-    }
-
-    .hero-section {
-        padding-top: 110px;
-    }
-
-    .food-anim-container,
-    .dish-anim-wrapper {
-        max-width: 220px;
-    }
-}
     </style>
 </head>
 
@@ -1484,7 +1069,7 @@ html {
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 order-1 order-lg-2 text-center fade-up" style="padding-top:70px">
+                <div class="col-lg-6 order-1 order-lg-2 text-center fade-up">
                     <div class="hero-img-wrapper d-inline-block position-relative w-100">
                         <div class="floating-emoji emoji-1">😋</div>
                         <div class="floating-emoji emoji-2">🥗</div>
@@ -1649,7 +1234,7 @@ html {
                 <div class="col-lg-4 col-md-6 fade-up menu-item" data-category="nonveg">
                     <div class="card menu-card h-100 border-0">
                         <div class="position-relative overflow-hidden">
-                            <img src="images/mutton_biryani_new.jpeg" alt="Mutton Dum Biryani"
+                            <img src="images/mutton_dum_biryani.jpg" alt="Mutton Dum Biryani"
                                 class="card-img-top menu-img w-100" loading="lazy">
                             <div class="position-absolute top-0 start-0 m-3 fs-3" title="Special">✨</div>
                         </div>
@@ -1740,7 +1325,7 @@ html {
                 <div class="col-lg-4 col-md-6 fade-up menu-item" data-category="nonveg">
                     <div class="card menu-card h-100 border-0">
                         <div class="position-relative overflow-hidden">
-                            <img src="images/mutton_masala_new.jpeg" alt="Mutton Masala" class="card-img-top menu-img w-100" loading="lazy">
+                            <img src="images/mutton_masala.jpg" alt="Mutton Masala" class="card-img-top menu-img w-100" loading="lazy">
                             <div class="position-absolute top-0 start-0 m-3 fs-3" title="Spicy">🔥</div>
                         </div>
                         <div class="card-body p-4 d-flex flex-column">
@@ -1768,7 +1353,7 @@ html {
                 <div class="col-lg-4 col-md-6 fade-up menu-item" data-category="nonveg">
                     <div class="card menu-card h-100 border-0">
                         <div class="position-relative overflow-hidden">
-                            <img src="images/chicken_masala_new.jpeg" alt="Chicken Masala"
+                            <img src="images/chicken_masala.png" alt="Chicken Masala"
                                 class="card-img-top menu-img w-100" loading="lazy">
                         </div>
                         <div class="card-body p-4 d-flex flex-column">
@@ -1851,7 +1436,7 @@ html {
                 <div class="col-lg-4 col-md-6 fade-up menu-item" data-category="nonveg">
                     <div class="card menu-card h-100 border-0">
                         <div class="position-relative overflow-hidden">
-                            <img src="images/chicken_tandoor_new.jpeg" alt="Chicken Tandoori"
+                            <img src="images/chicken_tandoori.jpg" alt="Chicken Tandoori"
                                 class="card-img-top menu-img w-100" loading="lazy">
                             <div class="position-absolute top-0 start-0 m-3 fs-3" title="Tandoor Special">🍗</div>
                         </div>
@@ -1907,7 +1492,7 @@ html {
                 <div class="col-lg-4 col-md-6 fade-up menu-item" data-category="veg">
                     <div class="card menu-card h-100 border-0">
                         <div class="position-relative overflow-hidden">
-                            <img src="images/pav_bhaji_new.jpeg" alt="Pav Bhaji" class="card-img-top menu-img w-100"
+                            <img src="images/pavbhaji.png" alt="Pav Bhaji" class="card-img-top menu-img w-100"
                                 loading="lazy">
                         </div>
                         <div class="card-body p-4 d-flex flex-column">
@@ -1932,7 +1517,7 @@ html {
                 <div class="col-lg-4 col-md-6 fade-up menu-item" data-category="veg">
                     <div class="card menu-card h-100 border-0">
                         <div class="position-relative overflow-hidden">
-                            <img src="images/pulaw_new.jpeg" alt="Veg Tawa Pulav" class="card-img-top menu-img w-100"
+                            <img src="images/tawa_pulav.png" alt="Veg Tawa Pulav" class="card-img-top menu-img w-100"
                                 loading="lazy">
                             <div class="position-absolute top-0 start-0 m-3 fs-3" title="Chef's Pick">👨‍🍳</div>
                         </div>
