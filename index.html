@@ -784,9 +784,20 @@
         }
 
         .social-links a:hover {
-            background: var(--primary);
-            color: white;
             transform: translateY(-3px);
+            color: white !important;
+        }
+
+        .social-link-facebook:hover {
+            background: #1877F2 !important;
+        }
+
+        .social-link-instagram:hover {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important;
+        }
+
+        .social-link-whatsapp:hover {
+            background: #25D366 !important;
         }
 
         /* ================= CUSTOM TESTIMONIAL SLIDER ================= */
@@ -942,6 +953,80 @@
             100% {
                 box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0);
             }
+        }
+
+        /* ================= ORDER DRAWER ================= */
+        .order-drawer-wrapper {
+            position: fixed;
+            top: 0;
+            right: -320px; /* Hidden by default */
+            width: 320px;
+            height: 100vh;
+            z-index: 9992;
+            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: visible;
+        }
+
+        .order-drawer-wrapper.open {
+            right: 0;
+        }
+
+        .order-drawer-inner {
+            width: 100%;
+            height: 100%;
+            background: var(--surface-color);
+            border-left: 1px solid var(--border-color);
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .order-drawer-btn {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translate(-100%, -50%);
+            z-index: 9993;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 16px 0 0 16px;
+            padding: 22px 10px;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            box-shadow: -4px 0 20px rgba(var(--primary-rgb), 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .order-drawer-btn:hover {
+            padding-left: 14px;
+            box-shadow: -6px 0 25px rgba(var(--primary-rgb), 0.5);
+            background: var(--primary-hover, #e03e00);
+        }
+
+        .order-drawer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            z-index: 9991;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         /* ================= MEDIA POPUP ================= */
@@ -2388,12 +2473,24 @@ html {
                     <p class="text-muted mb-4 pe-4">Enjoy delicious homemade meals prepared with care, traditional
                         recipes, and fresh ingredients for a truly satisfying experience.</p>
                     <div class="social-links d-flex gap-2">
-                        <a href="https://www.facebook.com/profile.php?id=61589950118012" target="_blank" rel="noopener noreferrer"><i
-                                class="bi bi-facebook"></i></a>
-                        <a href="https://www.instagram.com/aadyasnonvegkitchen/" target="_blank"
-                            rel="noopener noreferrer"><i class="bi bi-instagram"></i></a>
-                        <a href="https://wa.me/919766931302" target="_blank" rel="noopener noreferrer"><i
-                                class="bi bi-whatsapp"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=61589950118012" target="_blank" rel="noopener noreferrer" class="social-link-facebook" aria-label="Facebook">
+                            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor">
+                                <title>Facebook</title>
+                                <path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/aadyasnonvegkitchen/" target="_blank" rel="noopener noreferrer" class="social-link-instagram" aria-label="Instagram">
+                            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor">
+                                <title>Instagram</title>
+                                <path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/>
+                            </svg>
+                        </a>
+                        <a href="https://wa.me/919766931302" target="_blank" rel="noopener noreferrer" class="social-link-whatsapp" aria-label="WhatsApp">
+                            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor">
+                                <title>WhatsApp</title>
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                            </svg>
+                        </a>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
@@ -2430,8 +2527,11 @@ html {
         </button>
         
         <div class="media-header p-4 text-center border-bottom border-secondary border-opacity-10">
-            <h3 class="fw-bold mb-1" style="font-family: 'Outfit', sans-serif;">
-                <i class="bi bi-youtube text-danger me-2"></i> Aadya's Non Veg Kitchen Media Room
+            <h3 class="fw-bold mb-1" style="font-family: 'Outfit', sans-serif; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#ff0000">
+                    <title>YouTube</title>
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg> Aadya's Non Veg Kitchen Media Room
             </h3>
             <p id="media-video-title" class="mb-0 fw-semibold text-muted" style="font-size: 1.1rem;"></p>
         </div>
@@ -2464,8 +2564,66 @@ html {
             <span id="media-counter" class="fw-medium text-muted">Video 1 of 5</span>
             <a href="https://www.youtube.com/@AadyasNonVegKitchen/featured" target="_blank" rel="noopener noreferrer" 
                class="btn btn-danger rounded-pill px-4 py-2 d-inline-flex align-items-center gap-2" style="background-color: #ff0000; border-color: #ff0000; font-family: 'Outfit', sans-serif;">
-                <i class="bi bi-youtube"></i> Visit Our YouTube Channel
+                <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor">
+                    <title>YouTube</title>
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg> Visit Our YouTube Channel
             </a>
+        </div>
+    </div>
+
+    <!-- ================= ORDER DRAWER ================= -->
+    <div id="order-drawer-overlay" class="order-drawer-overlay"></div>
+    <div id="order-drawer-wrapper" class="order-drawer-wrapper">
+        <button id="order-drawer-btn" class="order-drawer-btn" aria-label="Toggle Order Drawer">
+            <i class="bi bi-telephone-fill me-1" style="transform: rotate(90deg);"></i> Order Now
+        </button>
+        <div class="order-drawer-inner">
+            <div class="drawer-content d-flex flex-column justify-content-center h-100 p-4">
+                <div class="text-center mb-4">
+                    <img src="images/logo_new.ico" alt="Aadya's Kitchen Logo" height="8" class="mb-2">
+                    <h5 class="fw-bold mb-1" style="font-family: 'Outfit', sans-serif;">Place Your Order</h5>
+                    <p class="text-muted small mb-0">Fresh homemade meals prepared to order</p>
+                </div>
+
+                <!-- Call Section -->
+                <div class="order-section text-center p-3 mb-3 rounded-4 shadow-sm border border-secondary border-opacity-10" style="background: rgba(var(--text-color-rgb), 0.02);">
+                    <span class="text-uppercase fw-bold text-muted small d-block mb-1" style="letter-spacing: 1.5px; font-size: 0.7rem;">Call Now</span>
+                    <a href="tel:+919766931302" class="fs-5 fw-extrabold text-decoration-none text-primary d-inline-flex align-items-center gap-2" style="font-family: 'Outfit', sans-serif;">
+                        <i class="bi bi-telephone-fill fs-6"></i> +91 97669 31302
+                    </a>
+                </div>
+
+                <!-- WhatsApp Section -->
+                <div class="order-section text-center p-3 mb-3 rounded-4 shadow-sm border border-secondary border-opacity-10" style="background: rgba(var(--text-color-rgb), 0.02);">
+                    <span class="text-uppercase fw-bold text-muted small d-block mb-2" style="letter-spacing: 1.5px; font-size: 0.7rem;">Order via WhatsApp</span>
+                    <a href="https://wa.me/919766931302" target="_blank" rel="noopener noreferrer" 
+                       class="btn w-100 rounded-pill py-2 fw-bold d-inline-flex align-items-center justify-content-center gap-2" 
+                       style="background-color: #25D366; color: white; border: none; font-family: 'Outfit', sans-serif; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);">
+                        <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor">
+                            <title>WhatsApp</title>
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                        </svg> Chat on WhatsApp
+                    </a>
+                </div>
+
+                <!-- Location Section -->
+                <div class="mb-3 text-center">
+                    <h6 class="fw-bold mb-1" style="font-family: 'Outfit', sans-serif; font-size: 0.95rem;">
+                        📍 Our Location
+                    </h6>
+                    <p class="text-muted small mb-0 px-2" style="line-height: 1.5; font-size: 0.8rem;">
+                        C-4, 901, Prayeja City, Phase - 1, Sinhgad road, Pune
+                    </p>
+                </div>
+
+                <!-- Note Section -->
+                <div class="p-2.5 rounded-4 mt-2 text-center" style="background-color: rgba(255, 69, 0, 0.05); border: 1px solid rgba(255, 69, 0, 0.12);">
+                    <p class="mb-0 text-danger fw-bold" style="font-size: 0.78rem; letter-spacing: 0.3px;">
+                        Note: Home delivery not available.
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -2801,9 +2959,29 @@ html {
 
             const mediaVideos = [
                 {
-                    title: "Delicious Mutton Sukka Preparation",
+                    title: "Aadya's Non Veg Kitchen Opening Promo",
                     type: "short",
-                    id: "9mPpl5C1z5o"
+                    id: "1dbUJoiE8Wo"
+                },
+                {
+                    title: "Authentic Mutton Sukka Preparation",
+                    type: "short",
+                    id: "IeDWg-UicUg"
+                },
+                {
+                    title: "Delicious Non-Veg Speciality",
+                    type: "short",
+                    id: "dBqwvE1iHZo"
+                },
+                {
+                    title: "Our Special Masala Blend",
+                    type: "short",
+                    id: "dqLxOogioNw"
+                },
+                {
+                    title: "Yummy Cooking Hacks & Recipes",
+                    type: "short",
+                    id: "wYwLpP_weD0"
                 },
                 {
                     title: "Yummy Chicken & Mutton Handi",
@@ -2811,9 +2989,14 @@ html {
                     id: "aa4boEO1fCE"
                 },
                 {
-                    title: "Authentic Chicken Masala Recipe",
+                    title: "Signature Chicken Gravy",
                     type: "short",
-                    id: "P45mH3hso0Q"
+                    id: "PlnchED2BFQ"
+                },
+                {
+                    title: "Traditional Cooking Showcase",
+                    type: "short",
+                    id: "MnUO_AJrH3U"
                 },
                 {
                     title: "Special Egg Dum Biryani Offer",
@@ -2821,9 +3004,59 @@ html {
                     id: "Lr-H0ggt0ek"
                 },
                 {
-                    title: "Homemade Quality Non-Veg Recipes",
+                    title: "Authentic Chicken Masala Recipe",
                     type: "short",
-                    id: "wYwLpP_weD0"
+                    id: "P45mH3hso0Q"
+                },
+                {
+                    title: "Zesty Chicken Masala Special",
+                    type: "short",
+                    id: "CORqzxRup1s"
+                },
+                {
+                    title: "Aadya's Kitchen Secret Spices",
+                    type: "short",
+                    id: "CNGdBhAKAiA"
+                },
+                {
+                    title: "Daily Non-Veg Preparation Updates",
+                    type: "short",
+                    id: "Rcpi750R6-8"
+                },
+                {
+                    title: "Juicy Chicken Tandoori",
+                    type: "short",
+                    id: "Gkwc8FWLiaE"
+                },
+                {
+                    title: "Aadya's Non-Veg Special Showcase",
+                    type: "short",
+                    id: "oAUpo9LcC94"
+                },
+                {
+                    title: "Yummy Pav Bhaji Recipe",
+                    type: "short",
+                    id: "2x2d1SS35Ls"
+                },
+                {
+                    title: "Zanzanit Chicken Kharda",
+                    type: "short",
+                    id: "XE6Bri0kv3E"
+                },
+                {
+                    title: "Key Factor 2 by 1 Deal",
+                    type: "short",
+                    id: "2K2qO8XiMms"
+                },
+                {
+                    title: "Mouthwatering Homemade Dishes",
+                    type: "short",
+                    id: "gozbOFhXQtk"
+                },
+                {
+                    title: "Yummy Egg Biryani Showcase",
+                    type: "short",
+                    id: "dWFiwpBb5HQ"
                 }
             ];
 
@@ -2848,7 +3081,10 @@ html {
                             <a href="${watchUrl}" target="_blank" rel="noopener noreferrer" 
                                class="btn btn-danger btn-sm rounded-pill px-4 py-2 fw-semibold d-inline-flex align-items-center gap-2" 
                                style="background-color: #ff0000; border-color: #ff0000; font-family: 'Outfit', sans-serif;">
-                                <i class="bi bi-youtube"></i> Watch on YouTube
+                                <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor">
+                                    <title>YouTube</title>
+                                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                                </svg> Watch on YouTube
                             </a>
                         </div>
                     `;
@@ -2931,6 +3167,43 @@ html {
                 currentMediaIndex = (currentMediaIndex + 1) % mediaVideos.length;
                 loadMediaVideo(currentMediaIndex);
             });
+
+            // Order Drawer Logic
+            const orderDrawerWrapper = document.getElementById('order-drawer-wrapper');
+            const orderDrawerBtn = document.getElementById('order-drawer-btn');
+            const orderDrawerOverlay = document.getElementById('order-drawer-overlay');
+
+            function openOrderDrawer() {
+                orderDrawerOverlay.style.display = "block";
+                setTimeout(() => {
+                    orderDrawerOverlay.style.opacity = "1";
+                }, 10);
+                orderDrawerWrapper.classList.add('open');
+                document.body.style.overflow = "hidden"; // Disable background scrolling
+            }
+
+            function closeOrderDrawer() {
+                orderDrawerOverlay.style.opacity = "0";
+                orderDrawerWrapper.classList.remove('open');
+                document.body.style.overflow = "auto"; // Re-enable background scrolling
+                setTimeout(() => {
+                    orderDrawerOverlay.style.display = "none";
+                }, 300);
+            }
+
+            function toggleOrderDrawer() {
+                if (orderDrawerWrapper.classList.contains('open')) {
+                    closeOrderDrawer();
+                } else {
+                    openOrderDrawer();
+                }
+            }
+
+            orderDrawerBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleOrderDrawer();
+            });
+            orderDrawerOverlay.addEventListener('click', closeOrderDrawer);
 
             function fallbackToLocalStorage() {
                 let visitorCount = parseInt(localStorage.getItem('visitor_count'), 10) || 1234;
