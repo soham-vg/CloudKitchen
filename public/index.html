@@ -777,27 +777,27 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: var(--bg-color);
-            color: var(--text-color);
+            color: white !important;
             transition: var(--transition);
             text-decoration: none;
         }
 
+        .social-link-facebook {
+            background: #1877F2;
+        }
+
+        .social-link-instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+
+        .social-link-whatsapp {
+            background: #25D366;
+        }
+
         .social-links a:hover {
             transform: translateY(-3px);
-            color: white !important;
-        }
-
-        .social-link-facebook:hover {
-            background: #1877F2 !important;
-        }
-
-        .social-link-instagram:hover {
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important;
-        }
-
-        .social-link-whatsapp:hover {
-            background: #25D366 !important;
+            filter: brightness(1.15);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
         }
 
         /* ================= CUSTOM TESTIMONIAL SLIDER ================= */
@@ -1062,10 +1062,28 @@
 
         @media (min-width: 768px) {
             .media-popup {
-                top: 1in;
-                bottom: 1in;
-                left: 1in;
-                right: 1in;
+                top: 4vh;
+                bottom: 4vh;
+                left: 8vw;
+                right: 8vw;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .media-popup {
+                top: 3vh;
+                bottom: 3vh;
+                left: 12vw;
+                right: 12vw;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .media-popup {
+                top: 2vh;
+                bottom: 2vh;
+                left: 20vw;
+                right: 20vw;
             }
         }
 
@@ -1138,16 +1156,38 @@
 
         /* Responsive Iframe styling */
         .player-short-mode {
-            max-height: 50vh;
+            aspect-ratio: 9/16;
+            width: 100% !important;
+            max-width: 280px;
+            height: auto !important;
         }
         @media (min-width: 576px) {
             .player-short-mode {
-                max-height: 60vh;
+                max-width: 320px;
             }
         }
         @media (min-width: 768px) {
             .player-short-mode {
-                max-height: 65vh;
+                width: auto !important;
+                height: 65vh !important;
+                max-height: 100%;
+                max-width: 380px;
+            }
+        }
+        @media (min-width: 992px) {
+            .player-short-mode {
+                width: auto !important;
+                height: 70vh !important;
+                max-height: 100%;
+                max-width: 420px;
+            }
+        }
+        @media (min-width: 1200px) {
+            .player-short-mode {
+                width: auto !important;
+                height: 74vh !important;
+                max-height: 100%;
+                max-width: 460px;
             }
         }
 
@@ -3121,11 +3161,11 @@ html {
                 // Adapt player container size and class based on Short vs Video
                 if (video.type === "short") {
                     playerContainer.style.aspectRatio = "9/16";
-                    playerContainer.style.maxWidth = "340px";
-                    playerContainer.className = "w-100 position-relative player-short-mode";
+                    playerContainer.style.maxWidth = ""; // Clear inline maxWidth to let responsive CSS handle it
+                    playerContainer.className = "position-relative player-short-mode";
                 } else {
                     playerContainer.style.aspectRatio = "16/9";
-                    playerContainer.style.maxWidth = "800px";
+                    playerContainer.style.maxWidth = ""; // Clear inline maxWidth to let responsive CSS handle it
                     playerContainer.className = "w-100 position-relative player-video-mode";
                 }
             }
