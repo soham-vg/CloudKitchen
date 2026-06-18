@@ -3246,15 +3246,16 @@ html {
             orderDrawerOverlay.addEventListener('click', closeOrderDrawer);
 
             function fallbackToLocalStorage() {
-                let visitorCount = parseInt(localStorage.getItem('visitor_count'), 10) || 1234;
-                if (!sessionStorage.getItem('has_visited')) {
-                    visitorCount++;
-                    localStorage.setItem('visitor_count', visitorCount);
-                    sessionStorage.setItem('has_visited', 'true');
-                }
-                if (visitorCountEl) {
-                    visitorCountEl.textContent = visitorCount;
-                }
+                <!-- let visitorCount = parseInt(localStorage.getItem('visitor_count'), 10) || 135; -->
+                <!-- if (!sessionStorage.getItem('has_visited')) { -->
+                    <!-- visitorCount++; -->
+                    <!-- localStorage.setItem('visitor_count', visitorCount); -->
+                    <!-- sessionStorage.setItem('has_visited', 'true'); -->
+                <!-- } -->
+                <!-- if (visitorCountEl) { -->
+                    <!-- visitorCountEl.textContent = visitorCount; -->
+                <!-- } -->
+				visitorCountEl.textContent = 135;
             }
         });
     </script>
